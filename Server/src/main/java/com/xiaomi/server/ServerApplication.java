@@ -1,6 +1,6 @@
 package com.xiaomi.server;
 
-import com.xiaomi.server.Entity.InfoEntity;
+import com.xiaomi.server.Entity.Metric;
 import com.xiaomi.server.common.Result;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class ServerApplication {
 
     @PostMapping("/api/metric/upload")
-    public Result uploadMetric(@RequestBody InfoEntity infoEntity) {
+    public Result uploadMetric(@RequestBody Metric metric) {
         // TODO 这里处理上传的指标数据，存储到MySQL和Redis中
         //return new Result("ok", 200,null);
         return null;
