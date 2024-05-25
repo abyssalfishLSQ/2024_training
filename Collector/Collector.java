@@ -25,7 +25,7 @@ public class Collector {
 
         // 发送HTTP POST请求上传数据
         RestTemplate restTemplate = new RestTemplate();
-        String serverUrl = "http://server-ip:server-port/api/metric/upload";
+        String serverUrl = "http://localhost:9092/api/metric/upload";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<List<Metric>> request = new HttpEntity<>(metrics, headers);

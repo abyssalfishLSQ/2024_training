@@ -24,8 +24,8 @@ public class Result {
         return new Result(code, msg, null);
     }
 
-    public static Result error() {
-        return new Result(Constants.CODE_500, "系统错误", null);
+    public static Result error(Object data) {
+        return new Result(Constants.CODE_500, "系统错误", data);
     }
 
 }
