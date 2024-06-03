@@ -20,13 +20,15 @@ import java.util.List;
 @EnableScheduling
 public class CollectorApplication {
 
+    private final long FixedRated=5000;
+
     @Autowired
     private RestTemplate restTemplate;
     public static void main(String[] args) {
         SpringApplication.run(CollectorApplication.class, args);
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = FixedRated)
     public void uploadMetrics() {
 
         // 模拟采集CPU和内存利用率数据
@@ -36,9 +38,10 @@ public class CollectorApplication {
         double cpuLoad = osBean.getSystemCpuLoad() * 100;
         double memLoad = (1 - (double) osBean.getFreePhysicalMemorySize() / osBean.getTotalPhysicalMemorySize()) * 100;
         long timestamp = System.currentTimeMillis() / 1000;
+        long step=FixedRated/1000;
 
-        Metric cpuMetric = new Metric("cpu.used.percent", "my-computer", timestamp, 5, cpuLoad);
-        Metric memMetric = new Metric("mem.used.percent", "my-computer", timestamp, 5, memLoad);
+        Metric cpuMetric = new Metric("cpu.used.percent", "my-computer", timestamp, step, cpuLoad);
+        Metric memMetric = new Metric("mem.used.percent", "my-computer", timestamp, step, memLoad);
         /*System.out.println(cpuMetric);
         System.out.println(cpuMetric);
         System.out.println("************************************\n");*/
