@@ -31,7 +31,7 @@ public class CollectorApplication {
     @Scheduled(fixedRate = FixedRated)
     public void uploadMetrics() {
 
-        // 模拟采集CPU和内存利用率数据
+        // 采集CPU和内存利用率数据
         List<Metric> metrics = new ArrayList<>();
 
         OperatingSystemMXBean osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
@@ -42,14 +42,6 @@ public class CollectorApplication {
 
         Metric cpuMetric = new Metric("cpu.used.percent", "my-computer", timestamp, step, cpuLoad);
         Metric memMetric = new Metric("mem.used.percent", "my-computer", timestamp, step, memLoad);
-        /*System.out.println(cpuMetric);
-        System.out.println(cpuMetric);
-        System.out.println("************************************\n");*/
-
-        /*
-        // 测试用的假数据，假设获取了CPU利用率和内存利用率的值
-        Metric cpuMetric = new Metric("cpu.used.percent", "my-computer", System.currentTimeMillis() / 1000, 60, 60.1);
-        Metric memMetric = new Metric("mem.used.percent", "my-computer", System.currentTimeMillis() / 1000, 60, 35.0);*/
 
         metrics.add(cpuMetric);
         metrics.add(memMetric);
