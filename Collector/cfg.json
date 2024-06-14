@@ -1,7 +1,7 @@
 {
   "files": [
-    "/home/work/a.log",
-    "/home/work/b.log"
+    "D:/2024_training/watchObject/a.log",
+    "D:/2024_training/watchObject/b.log"
   ],
-  "log_storage": "local_file"
+  "logStorage": "mysql"
 }
