@@ -36,7 +36,7 @@ public class CollectorApplication {
         initializeCollector("D:\\2024_training\\Collector\\cfg.json");
     }
 
-    //@Scheduled(fixedRate = FixedRated)
+    @Scheduled(fixedRate = FixedRated)
     public void uploadMetrics() {
 
         // 采集CPU和内存利用率数据
@@ -119,7 +119,7 @@ public class CollectorApplication {
 
         // 添加 log_storage 配置到请求中
         Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("log_storage", cfgconfig.getLogStorage());
+        requestBody.put("logStorage", cfgconfig.getLogStorage());
         requestBody.put("logs", logEntries);
 
         RestTemplate restTemplate = new RestTemplate();

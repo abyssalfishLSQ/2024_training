@@ -6,3 +6,6 @@
 2024-05-16 10:12:01 +08:00 ERROR tcp_ping::metric src/metric.rs:95 - Report one chunk done, error: Connection refused
 2024-05-16 10:12:00 +08:00 ERROR tcp_ping::metric src/metric.rs:95 - Report one chunk done, error: Connection refused
 2024-05-16 10:12:01 +08:00 ERROR tcp_ping::metric src/metric.rs:95 - Report one chunk done, error: Connection refused
+2024-05-16 10:12:01 +08:00 ERROR tcp_ping::metric src/metric.rs:95 - Report one chunk done, error: Connection refused
+2024-06-20 23:31:01 +08:00 ERROR tcp_ping::metric src/metric.rs:95 - Report one chunk done, error: Connection refused
+2024-06-20 23:37:01 +08:00 ERROR tcp_ping::metric src/metric.rs:95 - Report one chunk done, error: Connection refused
