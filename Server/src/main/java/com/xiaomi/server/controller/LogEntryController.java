@@ -26,6 +26,8 @@ public class LogEntryController {
 
             List<LogEntryRequest> logEntryRequests = request.getLogs();
 
+            System.out.println("logEntryRequests:"+logEntryRequests);
+
             List<LogEntry> logEntries = new ArrayList<>();
 
             for (LogEntryRequest logEntryRequest : logEntryRequests) {

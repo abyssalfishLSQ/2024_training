@@ -15,7 +15,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.lang.management.ManagementFactory;
 import java.nio.file.*;
 import java.util.*;
@@ -31,8 +33,12 @@ public class CollectorApplication {
 
     private static CFGConfig cfgconfig;
 
+    /*//使用一个 Map 来跟踪每个文件的最后读取位置，并在检测到文件变化时只读取新增的行。
+    private static Map<String, Long> filePointers = new HashMap<>();*/
+
+
     public static void main(String[] args) throws IOException{
-        //SpringApplication.run(CollectorApplication.class, args);
+        SpringApplication.run(CollectorApplication.class, args);
         initializeCollector("D:\\2024_training\\Collector\\cfg.json");
     }
 
@@ -105,12 +111,44 @@ public class CollectorApplication {
                     if (path.endsWith(event.context().toString())) {
                         List<String> lines = Files.readAllLines(path);
                         uploadLogs(path.toString(), lines);
+                        //uploadNewLogs(path.toString());//只上传新增行
                     }
                 }
             }
             key.reset();
         }
     }
+
+
+    /*private static void uploadNewLogs(String filePath) {
+        try {
+            File file = new File(filePath);
+            long filePointer = filePointers.get(filePath);
+            long newFileLength = file.length();
+            if (newFileLength > filePointer) {
+                List<String> newLogs = readNewLines(file, filePointer);
+                if (!newLogs.isEmpty()) {
+                    uploadLogs(filePath, newLogs);
+                }
+                filePointers.put(filePath, newFileLength);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static List<String> readNewLines(File file, long startPointer) throws IOException {
+        List<String> newLines = new ArrayList<>();
+        try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
+            raf.seek(startPointer);
+            String line;
+            while ((line = raf.readLine()) != null) {
+                newLines.add(line);
+            }
+        }
+        return newLines;
+    }*/
+
 
     private static void uploadLogs(String filePath, List<String> logs) {
         List<LogEntry> logEntries = Collections.singletonList(
@@ -121,6 +159,8 @@ public class CollectorApplication {
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("logStorage", cfgconfig.getLogStorage());
         requestBody.put("logs", logEntries);
+
+        System.out.println("Request Body: " + requestBody);  // 打印请求内容，
 
         RestTemplate restTemplate = new RestTemplate();
         String serverUrl = "http://localhost:9092/api/log/upload";
